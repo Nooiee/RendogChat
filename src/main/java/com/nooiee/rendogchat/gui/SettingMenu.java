@@ -125,9 +125,26 @@ public class SettingMenu {
             return true; // 메뉴 영역 내에서의 클릭은 이벤트 소비
         }
         return false;
+
     }
 
+    // 키 입력 이벤트 처리 메서드 추가
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (!visible) return false;
+        if (textFieldWidget.isFocused() && textFieldWidget.keyPressed(keyCode, scanCode, modifiers)) {
+            return true;
+        }
+        // 추가적으로 settingsButton의 키 입력이 필요하면 여기에 처리 가능
+        return false;
+    }
 
+    public boolean charTyped(char chr, int modifiers) {
+        if (!visible) return false;
+        if (textFieldWidget.isFocused() && textFieldWidget.charTyped(chr, modifiers)) {
+            return true;
+        }
+        return false;
+    }
 
     private boolean isMouseOverMenu(double mouseX, double mouseY) {
         return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;

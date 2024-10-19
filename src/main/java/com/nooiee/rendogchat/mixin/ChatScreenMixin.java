@@ -88,6 +88,26 @@ public abstract class ChatScreenMixin extends Screen implements ChatScreenAccess
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        // 설정 메뉴가 표시되고 있을 때
+        if (tabButton != null && tabButton.getMenu().isVisible()) {
+            if (tabButton.getMenu().keyPressed(keyCode, scanCode, modifiers)) {
+                return true; // 이벤트를 소비하고 더 이상 처리하지 않음
+            }
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
 
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        // 설정 메뉴가 표시되고 있을 때
+        if (tabButton != null && tabButton.getMenu().isVisible()) {
+            if (tabButton.getMenu().charTyped(chr, modifiers)) {
+                return true; // 이벤트를 소비하고 더 이상 처리하지 않음
+            }
+        }
+        return super.charTyped(chr, modifiers);
+    }
 }
 
